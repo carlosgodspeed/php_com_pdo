@@ -1,4 +1,5 @@
 <?php
+
     $dsn = 'mysql:host=localhost;dbname=php_com_pdo'; 
     $usuario = 'root';
     $senha = '';
@@ -7,25 +8,21 @@
         $conexão = new PDO($dsn, $usuario, $senha);
 
         $query = '
-            select * from tb_usuarios
+            select * from tb_usuarios where id= 4
         ';
 
         $stmt = $conexão->query($query);
-        $lista = $stmt->fetchAll();
+        $usuario = $stmt->fetch(PDO::FETCH_OBJ);
 
         echo '<pre>'; 
-        echo $lista[0]['nome'];
+        print_r($usuario);
         echo '</pre>';
 
-        echo '<pre>'; 
-        echo $lista[2]['email'];
-        echo '</pre>';
-
+        echo $usuario->nome;
 
     } catch(PDOException $e) {
         echo 'Erro: '.$e->getCode().'Mensagem:'.$e->getMessage();
         //Registrar Erro
     }
     
-
 ?>
